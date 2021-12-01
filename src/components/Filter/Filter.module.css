@@ -1,0 +1,9 @@
+.filter__container {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.filter__input {
+  display: block;
+  margin-top: 10px;
+}

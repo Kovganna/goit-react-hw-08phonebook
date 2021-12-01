@@ -1,0 +1,10 @@
+.user__container {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 20%;
+}
+
+.logout__btn {
+  margin-left: 10px;
+}

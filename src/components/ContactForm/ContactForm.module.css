@@ -1,0 +1,22 @@
+.contact__form {
+  margin: 0;
+  padding-left: 15px;
+  border: 1px solid #000;
+  width: 300px;
+}
+
+.input__number,
+.input__name {
+  margin-top: 10px;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.input__title {
+  font-style: 900;
+  font-size: 20px;
+}
+
+.btn__add {
+  margin-bottom: 10px;
+}

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { contactList, contactFilter } from './contacts/reducers';
+import { contactList, contactFilter, error } from './contacts/reducers';
 import authSlice from './auth/auth-slice';
 
 import logger from 'redux-logger';
@@ -27,6 +27,7 @@ const persistConfig = {
 const contactReducer = combineReducers({
   contactList,
   contactFilter,
+  error,
 });
 
 export const store = configureStore({

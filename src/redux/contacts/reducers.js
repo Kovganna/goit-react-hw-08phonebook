@@ -13,3 +13,14 @@ export const contactList = createReducer([], {
 export const contactFilter = createReducer('', {
   [filterContacts]: (_, { payload }) => payload,
 });
+
+export const error = createReducer(null, {
+  [addContact.rejected]: (_, { payload }) => payload,
+  [addContact.pending]: () => null,
+
+  [fetchContacts.rejected]: (_, { payload }) => payload,
+  [fetchContacts.pending]: () => null,
+
+  [removeContact.rejected]: (_, { payload }) => payload,
+  [removeContact.pending]: () => null,
+});

@@ -38,7 +38,7 @@ const token = {
 // );
 
 export const register = userData => dispatch => {
-  dispatch(registerRequest());
+  dispatch(loginRequest());
   axios
     .post(`${BASE_URL}/users/signup`, userData)
     .then(response => {
@@ -96,7 +96,7 @@ export const fetchCurrentUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
 
-    if (persistedToken === '') {
+    if (!persistedToken) {
       console.log('No token');
       return thunkAPI.rejectWithValue();
     }

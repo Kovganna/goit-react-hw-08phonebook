@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner';
 import AppBar from '../AppBar/AppBar';
 import Container from '../Container/Container';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from '../../redux/auth/auth-operations';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import PrivateRoute from '../PrivatRoute/PrivatRoute';
 import PublicRoute from '../PublicRoute/PublicRoute';
+import { getIsFetchCurrentUser } from '../../redux/auth/auth-selectors';
 
 const HomeView = lazy(() =>
   import('../../views/HomeView/HomeView' /* webpackChunkName: "home-view" */),
@@ -35,6 +36,7 @@ const PhoneView = lazy(() =>
 );
 
 export default function App() {
+  const isFetchCurrentUser = useSelector(getIsFetchCurrentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,27 +44,44 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <div className="Container">
-      <AppBar />
-      <Container>
-        <Suspense fallback={<Loader />}>
-          <Switch>
-            <PublicRoute exact path="/">
-              <HomeView />
-            </PublicRoute>
-            <PrivateRoute path="/contacts" redirectTo="/login">
-              <PhoneView />
-            </PrivateRoute>
-            <PublicRoute exact path="/signup" restricted>
-              <SignUpView />
-            </PublicRoute>
-            <PublicRoute exact path="/login" restricted>
-              <LoginView />
-            </PublicRoute>
-          </Switch>
-        </Suspense>
-      </Container>
-      <ToastContainer />
-    </div>
+    !isFetchCurrentUser && (
+      <div className="Container">
+        <AppBar />
+        <Container>
+          <Suspense fallback={<Loader />}>
+            <Switch>
+              <PublicRoute exact path="/">
+                <HomeView />
+              </PublicRoute>
+              <PublicRoute exact path="/signup" restricted>
+                <SignUpView />
+              </PublicRoute>
+              <PublicRoute
+                exact
+                path="/login"
+                restricted
+                redirectTo="/contacts"
+              >
+                <LoginView />
+              </PublicRoute>
+              <PrivateRoute path="/contacts" redirectTo="/login">
+                <PhoneView />
+              </PrivateRoute>
+            </Switch>
+          </Suspense>
+        </Container>
+        <ToastContainer
+          position="top-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </div>
+    )
   );
 }

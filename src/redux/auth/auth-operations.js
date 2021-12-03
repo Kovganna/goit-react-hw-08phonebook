@@ -9,6 +9,7 @@ import {
   registerError,
 } from './auth-actions';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const BASE_URL = 'https://connections-api.herokuapp.com';
 
@@ -38,7 +39,7 @@ const token = {
 // );
 
 export const register = userData => dispatch => {
-  dispatch(loginRequest());
+  dispatch(registerRequest());
   axios
     .post(`${BASE_URL}/users/signup`, userData)
     .then(response => {
@@ -47,7 +48,7 @@ export const register = userData => dispatch => {
     })
     .catch(error => {
       dispatch(registerError(error.message));
-      toast.info(error.message);
+      toast.error(error.message);
     });
 };
 
@@ -74,7 +75,7 @@ export const logIn = userData => dispatch => {
     })
     .catch(error => {
       dispatch(loginError(error.message));
-      toast.info(error.message);
+      toast.error(error.message);
     });
 };
 

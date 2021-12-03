@@ -1,11 +1,12 @@
 import s from './UserMenu.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserName } from '../../redux/auth/auth-selectors';
+
 import { logOut } from '../../redux/auth/auth-operations';
 
 export default function UserMenu() {
-  const dispatch = useDispatch();
   const name = useSelector(getUserName);
+  const dispatch = useDispatch();
 
   return (
     <div className={s.user__container}>

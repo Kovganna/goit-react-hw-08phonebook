@@ -22,22 +22,6 @@ const token = {
   },
 };
 
-// export const register = createAsyncThunk(
-//   'auth/register',
-//   async (credentials, { rejectWithValue }) => {
-//     try {
-//       const { data } = await axios.post(
-//         `${BASE_URL}/users/signup`,
-//         credentials,
-//       );
-//       token.set(data.token);
-//       return data;
-//     } catch (error) {
-//       rejectWithValue(error);
-//     }
-//   },
-// );
-
 export const register = userData => dispatch => {
   dispatch(registerRequest());
   axios
@@ -51,19 +35,6 @@ export const register = userData => dispatch => {
       toast.error(error.message);
     });
 };
-
-// export const logIn = createAsyncThunk(
-//   'auth/login',
-//   async (credentials, { rejectWithValue }) => {
-//     try {
-//       const { data } = await axios.post(`${BASE_URL}/users/login`, credentials);
-//       token.set(data.token);
-//       return data;
-//     } catch (error) {
-//       rejectWithValue(error);
-//     }
-//   },
-// );
 
 export const logIn = userData => dispatch => {
   dispatch(loginRequest());

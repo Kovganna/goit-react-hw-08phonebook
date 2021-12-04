@@ -4,11 +4,14 @@ import Loader from 'react-loader-spinner';
 import AppBar from '../AppBar/AppBar';
 import Container from '../Container/Container';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from '../../redux/auth/auth-operations';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {
+  getIsFetchCurrentUser,
+  getIsToken,
+} from '../../redux/auth/auth-selectors';
 import './App.css';
 import PrivateRoute from '../PrivatRoute/PrivatRoute';
 import PublicRoute from '../PublicRoute/PublicRoute';
@@ -36,14 +39,21 @@ const PhoneView = lazy(() =>
 
 export default function App() {
   const dispatch = useDispatch();
+  const isFetchCurrentUser = useSelector(getIsFetchCurrentUser);
+  const isToken = useSelector(getIsToken);
+  console.log(isFetchCurrentUser);
+  // const isFetchCurrentUser = false;
 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
-  }, [dispatch]);
+    if (isToken) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [dispatch, isToken]);
 
-  return (
+  return !isFetchCurrentUser ? (
     <div className="Container">
       <AppBar />
+
       <Container>
         <Suspense fallback={<Loader />}>
           <Switch>
@@ -62,7 +72,10 @@ export default function App() {
           </Switch>
         </Suspense>
       </Container>
+
       <ToastContainer />
     </div>
+  ) : (
+    <Loader />
   );
 }

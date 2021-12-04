@@ -11,7 +11,7 @@ const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
-  // isFetchCurrentUser: false,
+  isFetchCurrentUser: false,
   error: null,
 };
 
@@ -40,10 +40,20 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
+    [fetchCurrentUser.pending](state) {
+      state.isFetchCurrentUser = true;
+    },
 
     [fetchCurrentUser.fulfilled](state, { payload }) {
       state.user = payload;
       state.isLoggedIn = true;
+      state.isFetchCurrentUser = false;
+      console.log(state.isFetchCurrentUser);
+    },
+
+    [fetchCurrentUser.reject](state) {
+      state.isFetchCurrentUser = false;
+      console.log('state.isFetchCurrentUser', state.isFetchCurrentUser);
     },
 
     [loginSuccess](state, { payload }) {

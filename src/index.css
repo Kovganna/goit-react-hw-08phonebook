@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: URL('https://klike.net/uploads/posts/2019-06/medium/1560664173_2.jpg');
+  background-size: cover;
+  color: antiquewhite;
 }
 
 code {
